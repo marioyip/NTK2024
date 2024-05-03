@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flappy Fish Game</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+    }
+
+    canvas {
+        border: 1px solid black;
+    }
+</style>
+</head>
+<body>
+<canvas id="gameCanvas" width="70%" height="80%"></canvas>
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const fishImg = new Image();
+    fishImg.src = 'fish.png';
+    const gravity = 0.5;
+    const jumpStrength = 10;
+    const pipeWidth = 50;
+    const pipeGap = 200;
+    const pipeFrequency = 1500;
+    let fishY = canvas.height / 2;
+    let velocity = 0;
+    let score = 0;
+    let highScore = 0;
+    let pipes = [];
+    let lastPipeTime = Date.now();
+
+    function drawFish() {
+        ctx.drawImage(fishImg, 50, fishY - 25, 50, 50);
+    }
+
+    function drawPipes() {
+        pipes.forEach(pipe => {
+            ctx.fillStyle = 'green';
+            ctx.fillRect(pipe.x, 0, pipeWidth, pipe.topHeight);
+            ctx.fillRect(pipe.x, pipe.bottomY, pipeWidth, canvas.height - pipe.bottomY);
+        });
+    }
+
+    function drawScore() {
+        ctx.fillStyle = 'black';
+        ctx.font = '24px Arial';
+        ctx.fillText(`Score: ${score}`, 10, 30);
+        ctx.fillText(`High Score: ${highScore}`, 10, 60);
+    }
+
+    function update() {
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw objects
+        drawFish();
+        drawPipes();
+        drawScore();
+
+        // Update fish position
+        velocity += gravity;
+        fishY += velocity;
+
+        // Check for collisions
+        pipes.forEach(pipe => {
+            if (fishY < pipe.topHeight || fishY > pipe.bottomY) {
+                endGame();
+            } else if (pipe.x === 50) {
+                score++;
+                if (score > highScore) {
+                    highScore = score;
+                }
+            }
+        });
+
+        // Generate new pipe
+        if (Date.now() - lastPipeTime > pipeFrequency) {
+            const topHeight = Math.random() * (canvas.height - pipeGap - 100);
+            const bottomY = topHeight + pipeGap;
+            pipes.push({ x: canvas.width, topHeight, bottomY });
+            lastPipeTime = Date.now();
+        }
+
+        // Remove off-screen pipes
+        if (pipes[0]?.x + pipeWidth < 0) {
+            pipes.shift();
+        }
+
+        // Check if fish hits ground
+        if (fishY + 25 > canvas.height) {
+            endGame();
+        }
+
+        // Repeat
+        requestAnimationFrame(update);
+    }
+
+    function endGame() {
+        alert(`Game Over! Score: ${score}`);
+        resetGame();
+    }
+
+    function resetGame() {
+        score = 0;
+        pipes = [];
+        fishY = canvas.height / 2;
+        velocity = 0;
+    }
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === ' ' || e.key === 'ArrowUp') {
+            velocity = -jumpStrength;
+        }
+    });
+
+    fishImg.onload = update;
+</script>
+</body>
+</html>

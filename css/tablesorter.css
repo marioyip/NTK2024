@@ -1,0 +1,29 @@
+/* Tabel opmaak */
+.tablesorter {
+  font-family: Arial, sans-serif;
+  color: #444;
+  border-collapse: collapse;
+  font-size: 14px;
+  
+}
+
+.tablesorter thead th {
+  background-color: #494949;
+  font-weight: bold;
+  color: #444;
+  color: #fff;
+  font-weight: bold;
+  text-align: left;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.tablesorter tbody td {
+  border-bottom: 1px solid #ddd;
+  
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
