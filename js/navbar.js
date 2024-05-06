@@ -18,7 +18,7 @@ function createNavbar() {
       <li class="nav-item mx-1"><a class="colorBlack nav-link" href="stilletijd.html">stille tijd</a></li>
       <li class="nav-item mx-1"><a class="colorBlack nav-link" href="naamindeling.html">naamindeling</a></li>
       <li class="nav-item mx-1"><a class="colorBlack nav-link" href="huisregels.html">huisregels</a></li>
-      <li class="nav-item mx-1"><a class="colorBlack nav-link" href="medewerkerslijst.html">medewerkers</a></li>
+      <li class="nav-item mx-1"><a class="colorBlack nav-link" href="medewerkers.html">medewerkers</a></li>
     </ul>
   </div>
 </div>

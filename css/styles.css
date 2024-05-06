@@ -215,13 +215,12 @@ h4, .h4 {
 }
 .link {
   display: inline-block;
-  padding: 10px 20px;
   background-color: #9ccddf;
   color: #fff;
   text-decoration: none;
   border: none;
   border-radius: 5px;
-  margin-right: 10px;
+  padding: 5px 20px;
 }
 
 /* Style the active link to show a different background color */
@@ -334,7 +333,7 @@ a {
   color: #0d6efd;
 }
 a:hover {
-  color: #ffc720;
+  color: #F47621;
 }
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
@@ -396,10 +395,6 @@ svg {
   vertical-align: middle;
 }
 
-#table {
-  width: 100%;
-}
-
 @supports (-webkit-touch-callout: none) {
   /* CSS specific to iOS devices */ 
   input {
@@ -412,6 +407,10 @@ svg {
   input {
     opacity:1 !important;
   }
+}
+
+.truncate-text {
+  text-overflow: ellipsis; /* Voeg "..." toe aan het einde van de tekst als deze wordt afgekapt */
 }
 
 caption {
@@ -2082,14 +2081,13 @@ progress {
   --bs-table-active-bg: rgba(0, 0, 0, 0.1);
   --bs-table-hover-color: #212529;
   --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
-  width: 100%;
   margin-bottom: 1rem;
   color: #212529;
   vertical-align: top;
   border-color: #dee2e6;
   table-layout: auto;
-  min-width: 0;
 }
+
 .table > :not(caption) > * > * {
   padding: 0.5rem 0.5rem;
   background-color: var(--bs-table-bg);
